@@ -31,10 +31,11 @@ def construct(tab_control):
         nonlocal getting_ma, glob_ma
         if getting_ma:
             return None
-        getting_ma = True
+
         if glob_ma is not None:
-            getting_ma = False
             return glob_ma
+
+        getting_ma = True
 
         try:
             glob_ma = num_typ(ma_input.get())
@@ -65,10 +66,11 @@ def construct(tab_control):
         nonlocal getting_mb, glob_mb
         if getting_mb:
             return None
-        getting_mb = True
+
         if glob_mb is not None:
-            getting_mb = False
             return glob_mb
+
+        getting_mb = True
 
         try:
             glob_mb = num_typ(mb_input.get())
@@ -100,9 +102,10 @@ def construct(tab_control):
         if getting_mab:
             return None
 
-        getting_mab = True
         if glob_mab is not None:
             return glob_mab
+
+        getting_mab = True
 
         try:
             glob_mab = num_typ(mab_input.get())
@@ -124,9 +127,10 @@ def construct(tab_control):
         if getting_va:
             return None
 
-        getting_va = True
         if glob_va is not None:
             return glob_va
+
+        getting_va = True
 
         try:
             glob_va = num_typ(va_input.get())
@@ -137,11 +141,11 @@ def construct(tab_control):
             return glob_va
 
         if (
-            (mab := get_mab()) is not None
-            and (ma := get_ma()) is not None
-            and (mb := get_mb()) is not None
-            and (vb := get_vb()) is not None
-            and (vab := get_vab()) is not None
+                (mab := get_mab()) is not None
+                and (ma := get_ma()) is not None
+                and (mb := get_mb()) is not None
+                and (vb := get_vb()) is not None
+                and (vab := get_vab()) is not None
         ):
             glob_va = (mab * vab - mb * vb) / ma
             getting_va = False
@@ -149,15 +153,15 @@ def construct(tab_control):
 
         return None
 
-
     def get_vb():
         nonlocal getting_vb, glob_vb
         if getting_vb:
             return None
 
-        getting_vb = True
         if glob_vb is not None:
             return glob_vb
+
+        getting_vb = True
 
         try:
             glob_vb = num_typ(vb_input.get())
@@ -185,9 +189,10 @@ def construct(tab_control):
         if getting_vab:
             return None
 
-        getting_vab = True
         if glob_vab is not None:
             return glob_vab
+
+        getting_vab = True
 
         try:
             glob_vab = num_typ(vab_input.get())
@@ -205,7 +210,8 @@ def construct(tab_control):
                 and (vb := get_vb()) is not None
         ):
             glob_vab = (ma * va + mb * vb) / mab
-
+            getting_vab = False
+            return glob_vab
 
         return None
 
@@ -230,7 +236,6 @@ def construct(tab_control):
         )
 
         ma_out.config(text=str(get_ma()))
-
         va_out.config(text=str(get_va()))
         mb_out.config(text=str(get_mb()))
         vb_out.config(text=str(get_vb()))
@@ -277,20 +282,20 @@ def construct(tab_control):
     ma_out.grid(column=1, row=6)
     ttk.Label(frame, text="Va  =").grid(column=2, row=6)
     va_out = ttk.Label(frame)
-    va_out.grid(column=1, row=6)
+    va_out.grid(column=3, row=6)
 
     ttk.Label(frame, text="Mb  =").grid(column=0, row=7)
     mb_out = ttk.Label(frame)
     mb_out.grid(column=1, row=7)
     ttk.Label(frame, text="Vb  =").grid(column=2, row=7)
     vb_out = ttk.Label(frame)
-    vb_out.grid(column=1, row=7)
+    vb_out.grid(column=3, row=7)
 
     ttk.Label(frame, text="Mab  =").grid(column=0, row=8)
     mab_out = ttk.Label(frame)
     mab_out.grid(column=1, row=8)
     ttk.Label(frame, text="Vab  =").grid(column=2, row=8)
     vab_out = ttk.Label(frame)
-    vab_out.grid(column=1, row=8)
+    vab_out.grid(column=3, row=8)
 
     return "Inelastischer Stoß", frame
